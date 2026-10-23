@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Site.Title }} — control systems and DAE solvers in pure Go (planned)</title>
+<meta name="description" content="{{ .Site.Params.description }}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+{{ partial "styles.html" . }}
+</head>
+<body class="lm">
+  <header class="nav"><div class="wrap">
+    <a class="brand" href="/"><img class="glyph" src="/img/logo.svg" width="32" height="32" alt="go-control logo"> {{ .Site.Title }}</a>
+    <nav><a href="#features">Scope</a><a href="#exact">Checks</a><a href="#packages">Packages</a><a href="#repos">Repositories</a></nav>
+    {{ partial "theme-toggle.html" . }}
+  </div></header>
+  {{ partial "fork-ribbon.html" "https://github.com/go-control" }}
+
+  <div class="hero"><div class="wrap">
+    <div>
+      <h1 class="head">Control systems and DAE solvers, in pure Go.<br><span class="accent">Planned: nothing is released yet.</span></h1>
+      <p class="sub">go-control is the organisation the <a href="https://github.com/go-scikit/roadmap/blob/main/PLAN.md">go-scikit plan</a> names for what MATLAB's Control System Toolbox, Simulink's solvers, Mathematica's control systems and Maple's MapleSim offer: <b>LTI models and their responses</b>, <b>Riccati and LQR design</b>, a <b>DAE solver</b>, and later <b>symbolic acausal modelling</b>. It is wave 3 of the plan; no library and no code exist yet.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://go-control.github.io/docs/">{{ partial "icons/book.html" . }}Read the documentation →</a>
+      </div>
+      <div class="trust"><span><b>planned</b> wave 3</span><span><b>4</b> packages in the plan</span><span><b>0</b> releases</span></div>
+    </div>
+    <div class="term">
+      <div class="bar"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i><span class="t">status</span></div>
+<pre style="white-space:pre;overflow-x:auto;tab-size:4">state    planned (wave 3)
+library  none yet
+plan     github.com/go-scikit/roadmap
+         PLAN.md, STATUS.md</pre>
+    </div>
+  </div></div>
+
+  <div class="strip"><div class="wrap">
+    <span class="lead-line">{{ len .Site.Params.packages }} planned packages — <b>no library released</b>: see the <a href="https://github.com/go-scikit/roadmap/blob/main/STATUS.md">plan's status</a></span>
+    <div class="mods">{{ range .Site.Params.repos }}<a href="{{ .href }}">{{ .name }}</a>{{ end }}</div>
+  </div></div>
+
+  <section id="features"><div class="wrap">
+    <span class="eyebrow">What it will cover</span>
+    <h2>Control, <i>validated against the reference tools</i>.</h2>
+    <p class="lead">Every item starts from the roadmap's bibliography, is validated against the tool that is the reference in its domain, and lands with tests at 100% coverage and a performance table: no slower than the reference on one core.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">⇄</div><h3>LTI models</h3><p>Transfer-function, zero-pole-gain, state-space and frequency-response models, with series, parallel and feedback, poles and zeros.</p></div>
+      <div class="card"><div class="ico">📈</div><h3>Responses and margins</h3><p>Time and frequency responses, and stability margins.</p></div>
+      <div class="card"><div class="ico">⚙️</div><h3>Design</h3><p>Riccati and Lyapunov equations, LQR and LQG, Kalman gain, pole placement and discretisation.</p></div>
+      <div class="card"><div class="ico">∂</div><h3>DAE solver</h3><p>An IDA-type variable-order BDF solver with consistent initial conditions and events.</p></div>
+      <div class="card"><div class="ico">🧩</div><h3>Acausal modelling</h3><p>MapleSim-style equation assembly with Pantelides index reduction, after the DAE solver and go-symbolic (wave 4).</p></div>
+      <div class="card"><div class="ico">🔗</div><h3>Needs linear algebra</h3><p>Real Schur form with reordering, QZ and <code>expm</code>, which go-ndarray's <code>linalg</code> does not have yet.</p></div>
+      <div class="card"><div class="ico">📦</div><h3>Pure Go, CGO=0</h3><p>On every architecture the fleet's CI tests. GPL oracles such as Octave's control package are compared against, never ported.</p></div>
+      <div class="card"><div class="ico">⚖️</div><h3>BSD-3-Clause</h3><p>Every repository of the organization.</p></div>
+    </div>
+  </div></section>
+
+  <section id="exact" style="padding-top:10px"><div class="wrap">
+    <span class="eyebrow">What will be checked</span>
+    <h2>{{ len .Site.Params.checks }} kinds of check, each <i>against a reference</i>.</h2>
+    <p class="lead">These are the measures the plan holds the work to. None has been run: there is no code yet.</p>
+    <div class="grid">
+      {{ range .Site.Params.checks }}
+      <div class="card"><h3>{{ .name }}</h3><p>{{ .what | markdownify }}</p></div>
+      {{ end }}
+    </div>
+  </div></section>
+
+  <section id="packages" style="padding-top:20px"><div class="wrap">
+    <span class="eyebrow">Planned packages</span>
+    <h2>What will be here.</h2>
+    <p class="lead">The names are provisional. None of these repositories exists yet.</p>
+    <div class="road">
+      {{ range .Site.Params.packages }}
+      <div class="ph">
+        <div class="top"><h4>{{ .name }}</h4><span class="tag">{{ .kind }}</span></div>
+        <p>{{ .blurb | safeHTML }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div></section>
+
+  <section id="repos" style="padding-top:20px"><div class="wrap">
+    <span class="eyebrow">Repositories</span>
+    <h2>What is here.</h2>
+    <div class="road">
+      {{ range .Site.Params.repos }}
+      <div class="ph">
+        <div class="top"><h4><a href="{{ .href }}">{{ .name }}</a></h4><span class="tag active">{{ .kind }}</span></div>
+        <p>{{ .blurb | safeHTML }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div></section>
+
+  <section id="eco" style="padding-top:6px"><div class="wrap">
+    <div class="band">
+      <h2>Control for Go.</h2>
+      <p>go-control is planned, wave 3 of the go-scikit roadmap. The <a href="https://github.com/go-scikit/roadmap/blob/main/PLAN.md"><u>plan</u></a> says what it will cover and in what order, and its <a href="https://github.com/go-scikit/roadmap/blob/main/STATUS.md"><u>status</u></a> says where each item stands. The <a href="https://go-control.github.io/docs/"><u>documentation</u></a> repeats the scope and the references.</p>
+      <a class="btn btn-ghost" href="https://github.com/go-control">{{ partial "icons/github.html" . }}Read the source on GitHub →</a>
+    </div>
+  </div></section>
+
+  <footer><div class="wrap"><span>go-control · <a href="https://github.com/go-control">go-control on GitHub</a> · BSD-3-Clause</span><span>every loop · closed right</span></div></footer>
+</body>
+</html>
